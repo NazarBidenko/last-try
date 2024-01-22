@@ -1,13 +1,18 @@
-<!-- src/App.vue -->
 <template>
   <div id="app">
+    <Header />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Header from '@/components/Header.vue';
+
 export default {
   name: 'App',
+  components: {
+    Header,
+  },
 };
 </script>
 
@@ -16,8 +21,5 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
-
-/* Додайте додаткові стилі за необхідності */
 </style>

@@ -1,9 +1,9 @@
-<!-- src/views/Home.vue -->
 <template>
   <div>
+    <h1 class="page-title">Product Catalog</h1>
+
     <input v-model="searchTerm" placeholder="Search by name" />
     <button @click="searchProducts">Search</button>
-    <h2>{{ searchTerm }}</h2>
 
     <label>
       Sort by:
@@ -12,9 +12,6 @@
         <option value="rating">Rating</option>
       </select>
     </label>
-
-    <h1 class="page-title">Product Catalog</h1>
-    <router-link to="/create-product" class="create-btn">Create Product</router-link>
 
     <div v-if="loading">Loading...</div>
     <div v-else class="product-grid">
@@ -58,11 +55,9 @@ export default {
   },
   computed: {
     filteredProducts() {
-      // фільтрація продуктів за назвою
       return this.products.filter(product => product.title.toLowerCase().includes(this.searchTerm.toLowerCase()));
     },
     sortedProducts() {
-      // сортування продуктів відповідно до sortOrder
       const sorted = [...this.filteredProducts];
       if (this.sortOrder === 'title') {
         sorted.sort((a, b) => a.title.localeCompare(b.title));
@@ -79,7 +74,6 @@ export default {
     async searchProducts() {
     try {
       this.loading = true;
-      // Ваш пошуковий запит. У цьому випадку, ми фільтруємо продукти за назвою, яке міститься в полі 'title'.
       this.products = this.baseProducts.filter(product => product.title.toLowerCase().includes(this.searchTerm.toLowerCase()));
     } catch (error) {
       console.error('Error searching products:', error);
@@ -88,8 +82,6 @@ export default {
     }
     },
     sortProducts() {
-    // Оновіть дані відповідно до порядку сортування
-    // Виконайте необхідні дії для сортування (локально або через запит до сервера)
     if (this.sortOrder === 'title') {
       this.products.sort((a, b) => a.title.localeCompare(b.title));
     } else if (this.sortOrder === 'rating') {
@@ -103,8 +95,25 @@ export default {
 <style scoped>
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+}
+
+@media (min-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .product-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }
 
 .page-title {

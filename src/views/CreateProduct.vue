@@ -1,4 +1,3 @@
-<!-- src/views/CreateProduct.vue -->
 <template>
   <div>
     <h1 class="page-title">Create New Product</h1>
@@ -77,12 +76,11 @@ export default {
         thumbnail: '',
         images: [],
       },
-      imageURLs: '', // Для тимчасового зберігання URL зображень
+      imageURLs: '',
     };
   },
   methods: {
     createProduct() {
-      // Розділити кома-розділені URL зображень у масив
       const imageUrlsArray = this.imageURLs.split(',').map(url => url.trim());
       this.newProduct.images = imageUrlsArray;
 

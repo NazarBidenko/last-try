@@ -22,7 +22,6 @@
       </div>
     </div>
 
-    <!-- Модальне вікно для оновлення продукту -->
     <div v-if="isUpdateModalOpen" class="modal">
       <div class="modal-content">
         <label for="updateTitle">Title:</label>
@@ -45,8 +44,6 @@
 
         <label for="updateRating">Rating:</label>
         <input type="number" id="updateRating" v-model="updatedProduct.rating" min="1" max="5" required>
-
-        <!-- Додайте інші поля для оновлення інших характеристик продукту за необхідності -->
 
         <button @click="updateProductData" class="action-btn">Update</button>
         <button @click="closeUpdateModal" class="action-btn cancel-btn">Cancel</button>
@@ -74,8 +71,7 @@ export default {
         stock: 0,
         brand: '',
         category: '',
-        images: [], // Змінена структура для збереження масиву фотографій
-        // Додайте інші характеристики продукту за необхідності
+        images: [],
       },
     };
   },
@@ -101,11 +97,9 @@ export default {
       this.isUpdateModalOpen = false;
     },
     updateProductData() {
-      // Перевірте, чи оновлені дані мають правильний формат та збережіть їх
       this.product = { ...this.updatedProduct };
       this.isUpdateModalOpen = false;
 
-      // Отримайте ID продукту і відправте оновлені дані на сервер
       const productId = this.product.id;
       axios.put(`https://dummyjson.com/products/${productId}`, {
         title: this.updatedProduct.title,
@@ -115,11 +109,9 @@ export default {
         brand: this.updatedProduct.brand,
         category: this.updatedProduct.category,
         rating: this.updatedProduct.rating,
-        images: this.updatedProduct.images, // Зміна для передачі масиву фотографій
-        // Додайте інші характеристики продукту за необхідності
+        images: this.updatedProduct.images,
       })
         .then(response => {
-          // Оновлені дані можна отримати з відповіді сервера, якщо це необхідно
           console.log('Updated product data:', response.data);
         })
         .catch(error => {
@@ -127,11 +119,9 @@ export default {
         });
     },
     deleteProduct() {
-      // Видаліть продукт і перенаправте на домашню сторінку
       const productId = this.product.id;
       axios.delete(`https://dummyjson.com/products/${productId}`)
         .then(response => {
-          // Можливо, вам потрібно щось зробити після успішного видалення на сервері
           console.log('Deleted product data:', response.data);
         })
         .catch(error => {
@@ -140,17 +130,6 @@ export default {
         .finally(() => {
           this.$router.push('/');
         });
-    },
-    handleImageChange(event) {
-      // Обробка зміни фотографії
-      const files = event.target.files;
-      if (files && files.length > 0) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.updatedProduct.images = [e.target.result];
-        };
-        reader.readAsDataURL(files[0]);
-      }
     },
   },
 };
