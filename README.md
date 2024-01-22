@@ -1,4 +1,3 @@
-# Project Name
 
 ## Local Setup
 
