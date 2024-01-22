@@ -2,6 +2,7 @@
   "name": "artcodevision-test",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://NazarBidenko.github.io/last-try",
   "scripts": {
     "deploy": "npm run build && gh-pages -d dist",
     "predeploy": "npm run build",
